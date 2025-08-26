@@ -69,7 +69,7 @@ async function startAutoClose() {
 
     setTimeout(() => {
       window.close();
-    }, 4000);
+    }, 3000);
   }
 }
 

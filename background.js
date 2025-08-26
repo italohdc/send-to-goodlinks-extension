@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.action.onClicked.addListener(async (tab) => {
   if (!tab.url) return;
 
-  let openPageUrl = chrome.runtime.getURL('open.html');
+  let openPageUrl = chrome.runtime.getURL('send.html');
   openPageUrl += `?url=${encodeURIComponent(tab.url)}`;
   openPageUrl += `&title=${encodeURIComponent(tab.title)}`;
 

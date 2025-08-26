@@ -22,3 +22,5 @@ button {
 button:hover {
   opacity: 0.8;
 }
+
+.helper { display: block; font-size: 0.9em; color: gray; }

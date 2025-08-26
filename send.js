@@ -3,6 +3,7 @@ const defaultParams = {
   starred: false,
   read: false,
   title: null,
+  autoclose: false,
 };
 
 function generateGoodlinksUrl(url, params = {}) {
@@ -25,6 +26,7 @@ async function getParams() {
         tags: items.tags.split(',').map(tag => tag.trim()),
         starred: items.starred,
         read: items.read,
+        autoclose: items.autoclose,
         title: getPageTitle(),
       };
 
@@ -58,17 +60,43 @@ async function populateFallbackLink() {
   button.href = goodLinksUrl;
 }
 
-async function sendToGoodLinks() {
-  const goodLinksUrl = await getFinalLink();
-  window.location.href = goodLinksUrl;
+async function startAutoClose() {
+  const params = await getParams();
 
   if (params.autoclose) {
+    document.querySelector('.autoclose-alert').classList.remove('hide');
+    document.querySelector('.btn-enable-autoclose').classList.add('hide');
+
     setTimeout(() => {
       window.close();
     }, 4000);
   }
 }
 
+async function enableAutoclose() {
+  chrome.storage.sync.set({ autoclose: true });
+  await startAutoClose();
+}
+
+async function showButtonOrAlert() {
+  const params = await getParams();
+
+  if (params.autoclose) {
+    document.querySelector('.autoclose-alert').classList.remove('hide');
+  } else {
+    document.querySelector('.btn-enable-autoclose').classList.remove('hide');
+  }
+}
+
+async function sendToGoodLinks() {
+  const goodLinksUrl = await getFinalLink();
+  window.location.href = goodLinksUrl;
+  await startAutoClose();
+}
 
 sendToGoodLinks();
+showButtonOrAlert();
 populateFallbackLink();
+
+const button = document.querySelector('.btn-enable-autoclose');
+button.addEventListener('click', enableAutoclose);

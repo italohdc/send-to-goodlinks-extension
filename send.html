@@ -28,17 +28,64 @@
       font-size: 20px;
       margin-left: 20px;
     }
+
+    .btn-enable-autoclose {
+      margin-top: 24px;
+    }
+
+    .autoclose-alert {
+      display: none;
+
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .autoclose-alert p {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+
+      margin: 0;
+      margin-bottom: 8px;
+    }
+
+    .autoclose-alert img {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+
+    .hide { display: none; }
+    .fallback { margin-top: 36px; }
   </style>
 </head>
 
 <body>
-  <!-- icon -->
   <div class="main-div">
     <img src="icon.png" alt="Extension Icon">
     <p>Sending to GoodLinks...</p>
   </div>
+
+  <button id="btn-enable-autoclose" class="btn-enable-autoclose hide">
+    Always close page automatically
+  </button>
+
+  <div class="autoclose-alert hide">
+    <p>
+      <img src="assets/check-circle-outline.svg" alt="Success">
+      This page will be closed automatically.
+    </p>
+
+    <p class="helper">
+      You can change this behavior in the extension options.
+    </p>
+  </div>
   
-  <p>If nothing happens, <a href="#" id="fallback-link">click here</a>.</p>
+  <p class="fallback helper">
+    If nothing happens, <a href="#" id="fallback-link">click here</a>.
+  </p>
 
   <script src="send.js"></script>
 </body>

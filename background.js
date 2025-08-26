@@ -14,18 +14,6 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.action.onClicked.addListener(async (tab) => {
   if (!tab.url) return;
 
-  function generateGoodlinksUrl(url, starred = false, read = false, tags = []) {
-    var url = encodeURIComponent(url);
-    var goodlinksUrl = 'goodlinks://x-callback-url/save?url=' + url + '&starred=' + (starred ? 1 : 0) + '&read=' + (read ? 1 : 0) + '&tags=' + tags.join('%20');
-    return goodlinksUrl;
-  }
-
-  chrome.storage.sync.get(['tags', 'starred', 'read'], function(items) {
-    const tags = items.tags.split(',').map(tag => tag.trim());
-    const starred = items.starred;
-    const read = items.read;
-
-    const goodLinksUrl = generateGoodlinksUrl(tab.url, starred, read, tags);
-    chrome.tabs.create({ url: goodLinksUrl });
-  });
+  const openPageUrl = chrome.runtime.getURL('open.html') + '?url=' + encodeURIComponent(tab.url);
+  chrome.tabs.create({ url: openPageUrl });
 });

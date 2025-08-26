@@ -18,6 +18,21 @@ function generateGoodlinksUrl(url, params = {}) {
   return goodlinksUrl;
 }
 
+async function getParams() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['tags', 'starred', 'read', 'autoclose'], function(items) {
+      const params = {  
+        tags: items.tags.split(',').map(tag => tag.trim()),
+        starred: items.starred,
+        read: items.read,
+        title: getPageTitle(),
+      };
+
+      resolve(params);
+    });
+  });
+}
+
 function getPageUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get('url');
@@ -29,23 +44,31 @@ function getPageTitle() {
 }
 
 
-(async function() {
-  chrome.storage.sync.get(['tags', 'starred', 'read', 'autoclose'], function(items) {
-    const params = {  
-      tags: items.tags.split(',').map(tag => tag.trim()),
-      starred: items.starred,
-      read: items.read,
-      title: getPageTitle(),
-    };
+async function getFinalLink() {
+  const params = await getParams();
+  const pageUrl = getPageUrl();
 
-    const pageUrl = getPageUrl();
-    const goodLinksUrl = generateGoodlinksUrl(pageUrl, params);
-    window.location.href = goodLinksUrl;
+  return generateGoodlinksUrl(pageUrl, params);
+}
 
-    if (items.autoclose) {
-      setTimeout(() => {
-        window.close();
-      }, 4000);
-    }
-  });
-})();
+
+async function populateFallbackLink() {
+  const goodLinksUrl = await getFinalLink();
+  const button = document.getElementById('fallback-link');
+  button.href = goodLinksUrl;
+}
+
+async function sendToGoodLinks() {
+  const goodLinksUrl = await getFinalLink();
+  window.location.href = goodLinksUrl;
+
+  if (params.autoclose) {
+    setTimeout(() => {
+      window.close();
+    }, 4000);
+  }
+}
+
+
+sendToGoodLinks();
+populateFallbackLink();

@@ -1,10 +1,19 @@
-function generateGoodlinksUrl(url, starred = false, read = false, tags = []) {
+const defaultParams = {
+  tags: [],
+  starred: false,
+  read: false,
+  title: null,
+};
+
+function generateGoodlinksUrl(url, params = {}) {
   const encodedUrl = encodeURIComponent(url);
+  const finalParams = { ...defaultParams, ...params };
 
   let goodlinksUrl = `goodlinks://x-callback-url/save?url=${encodedUrl}`
-  goodlinksUrl += `&starred=${starred ? 1 : 0}`
-  goodlinksUrl += `&read=${read ? 1 : 0}`
-  goodlinksUrl += `&tags=${tags.join('%20')}`;
+  goodlinksUrl += `&starred=${finalParams.starred ? 1 : 0}`
+  goodlinksUrl += `&read=${finalParams.read ? 1 : 0}`
+  goodlinksUrl += `&tags=${finalParams.tags.join('%20')}`;
+  goodlinksUrl += `&title=${encodeURIComponent(finalParams.title)}`;
 
   return goodlinksUrl;
 }
@@ -14,15 +23,23 @@ function getPageUrl() {
   return params.get('url');
 }
 
+function getPageTitle() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('title');
+}
+
 
 (async function() {
   chrome.storage.sync.get(['tags', 'starred', 'read'], function(items) {
-    const tags = items.tags.split(',').map(tag => tag.trim());
-    const starred = items.starred;
-    const read = items.read;
-    
+    const params = {
+      tags: items.tags.split(',').map(tag => tag.trim()),
+      starred: items.starred,
+      read: items.read,
+      title: getPageTitle(),
+    };
+
     const pageUrl = getPageUrl();
-    const goodLinksUrl = generateGoodlinksUrl(pageUrl, starred, read, tags);
+    const goodLinksUrl = generateGoodlinksUrl(pageUrl, params);
     window.location.href = goodLinksUrl;
   });
 })();

@@ -30,8 +30,8 @@ function getPageTitle() {
 
 
 (async function() {
-  chrome.storage.sync.get(['tags', 'starred', 'read'], function(items) {
-    const params = {
+  chrome.storage.sync.get(['tags', 'starred', 'read', 'autoclose'], function(items) {
+    const params = {  
       tags: items.tags.split(',').map(tag => tag.trim()),
       starred: items.starred,
       read: items.read,
@@ -41,5 +41,11 @@ function getPageTitle() {
     const pageUrl = getPageUrl();
     const goodLinksUrl = generateGoodlinksUrl(pageUrl, params);
     window.location.href = goodLinksUrl;
+
+    if (items.autoclose) {
+      setTimeout(() => {
+        window.close();
+      }, 4000);
+    }
   });
 })();

@@ -6,18 +6,25 @@
     body { font-family: Arial, sans-serif; margin: 20px; }
     label { display: block; margin-top: 10px; }
     input[type="text"] { width: 300px; }
+
+    .helper { display: block; font-size: 0.9em; color: gray; }
   </style>
 </head>
 
 <body>
   <h2>Send to GoodLinks - Extension Options</h2>
-  <p>Customize which options should be sent by default to GoodLinks:</p>
   <br/>
-
+  
   <form id="options-form">
+    <h3>Default Options</h3>
+    <p>Customize which options should be sent by default to GoodLinks.</p>
+
     <label>
-      Tags (comma separated):
+      Tags:
       <input type="text" id="tags" placeholder="chrome, web">
+      <span class="helper">
+        (Comma separated. Example: <code>chrome, web</code>)
+      </span>
     </label>
     <label>
       Mark as Read:
@@ -27,7 +34,25 @@
       Add to Starred:
       <input type="checkbox" id="starred">
     </label>
+    
     <br>
+    <br>
+
+    <h3>Extension Options</h3>
+    <p>These options control the behavior of the extension.</p>
+
+    <label>
+      Auto close tab:
+      <input type="checkbox" id="autoclose">
+      <span class="helper">
+        (Closes the "Sending to GoodLinks..." page after 4 seconds)
+      </span>
+    </label>
+
+    <br>
+    <br>
+    <br>
+
     <button type="submit">Save</button>
     <span id="status"></span>
   </form>

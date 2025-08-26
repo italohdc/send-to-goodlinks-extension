@@ -3,10 +3,12 @@ function saveOptions(e) {
 
   const tags = document.getElementById('tags').value;
   const starred = document.getElementById('starred').checked;
+  const read = document.getElementById('read').checked;
 
   chrome.storage.sync.set({
     tags: tags,
-    starred: starred
+    starred: starred,
+    read: read
   }, function() {
     document.getElementById('status').textContent = 'Options saved!';
     setTimeout(() => {
@@ -18,10 +20,12 @@ function saveOptions(e) {
 function restoreOptions() {
   chrome.storage.sync.get({
     tags: '',
-    starred: false
+    starred: false,
+    read: false
   }, function(items) {
     document.getElementById('tags').value = items.tags;
     document.getElementById('starred').checked = items.starred;
+    document.getElementById('read').checked = items.read;
   });
 }
 

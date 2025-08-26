@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Send to GoodLinks",
+  "version": "1.0",
+  "description": "Send current page to GoodLinks app",
+  "permissions": ["tabs"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Send to GoodLinks",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

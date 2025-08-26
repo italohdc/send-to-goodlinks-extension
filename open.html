@@ -2,13 +2,42 @@
 <html>
 <head>
   <title>Sending to GoodLinks...</title>
+
+  <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    body {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .main-div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: fit-content;
+
+      margin: auto;
+    }
+
+    .main-div img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .main-div p {
+      font-size: 20px;
+      margin-left: 20px;
+    }
   </style>
 </head>
 
 <body>
-  <h2>Sending to GoodLinks...</h2>
+  <!-- icon -->
+  <div class="main-div">
+    <img src="icon.png" alt="Extension Icon">
+    <p>Sending to GoodLinks...</p>
+  </div>
+
   <script src="open.js"></script>
 </body>
 </html>

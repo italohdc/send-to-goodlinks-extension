@@ -2,21 +2,25 @@
 <html>
 <head>
   <title>Send to GoodLinks - Extension Options</title>
+
+  <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
+    body { margin: 20px; }
+
     label { display: block; margin-top: 10px; }
     input[type="text"] { width: 300px; }
 
+    .subtitle { margin-top: 32px; }
     .helper { display: block; font-size: 0.9em; color: gray; }
+    .save { margin-top: 32px; }
   </style>
 </head>
 
 <body>
   <h2>Send to GoodLinks - Extension Options</h2>
-  <br/>
   
   <form id="options-form">
-    <h3>Default Options</h3>
+    <h3 class="subtitle">Default Options</h3>
     <p>Customize which options should be sent by default to GoodLinks.</p>
 
     <label>
@@ -34,11 +38,8 @@
       Add to Starred:
       <input type="checkbox" id="starred">
     </label>
-    
-    <br>
-    <br>
 
-    <h3>Extension Options</h3>
+    <h3 class="subtitle">Extension Options</h3>
     <p>These options control the behavior of the extension.</p>
 
     <label>
@@ -49,11 +50,7 @@
       </span>
     </label>
 
-    <br>
-    <br>
-    <br>
-
-    <button type="submit">Save</button>
+    <button type="submit" class="save">Save</button>
     <span id="status"></span>
   </form>
 

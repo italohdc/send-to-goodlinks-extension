@@ -1,6 +1,11 @@
 function generateGoodlinksUrl(url, starred = false, read = false, tags = []) {
-  var url = encodeURIComponent(url);
-  var goodlinksUrl = 'goodlinks://x-callback-url/save?url=' + url + '&starred=' + (starred ? 1 : 0) + '&read=' + (read ? 1 : 0) + '&tags=' + tags.join('%20');
+  const encodedUrl = encodeURIComponent(url);
+
+  let goodlinksUrl = `goodlinks://x-callback-url/save?url=${encodedUrl}`
+  goodlinksUrl += `&starred=${starred ? 1 : 0}`
+  goodlinksUrl += `&read=${read ? 1 : 0}`
+  goodlinksUrl += `&tags=${tags.join('%20')}`;
+
   return goodlinksUrl;
 }
 

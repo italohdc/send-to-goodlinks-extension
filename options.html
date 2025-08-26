@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send to GoodLinks - Extension Options</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 10px; }
+    input[type="text"] { width: 300px; }
+  </style>
+</head>
+
+<body>
+  <h2>Send to GoodLinks - Extension Options</h2>
+  <p>Customize which options should be sent by default to GoodLinks:</p>
+  <br/>
+
+  <form id="options-form">
+    <label>
+      Tags (comma separated):
+      <input type="text" id="tags" placeholder="chrome, web">
+    </label>
+    <label>
+      Add to Starred:
+      <input type="checkbox" id="starred">
+    </label>
+    <br>
+    <button type="submit">Save</button>
+    <span id="status"></span>
+  </form>
+
+  <script src="options.js"></script>
+</body>
+</html>

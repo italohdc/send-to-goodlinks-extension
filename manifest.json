@@ -3,7 +3,7 @@
   "name": "Send to GoodLinks",
   "version": "1.0",
   "description": "Send current page to GoodLinks app",
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "storage"],
   "background": {
     "service_worker": "background.js"
   },
@@ -16,5 +16,6 @@
     "32": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
-  }
+  },
+  "options_page": "options.html"
 }

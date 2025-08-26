@@ -1,5 +1,5 @@
 const defaultParams = {
-  tags: [],
+  tags: '',
   starred: false,
   read: false,
   title: null,
@@ -13,7 +13,7 @@ function generateGoodlinksUrl(url, params = {}) {
   let goodlinksUrl = `goodlinks://x-callback-url/save?url=${encodedUrl}`
   goodlinksUrl += `&starred=${finalParams.starred ? 1 : 0}`
   goodlinksUrl += `&read=${finalParams.read ? 1 : 0}`
-  goodlinksUrl += `&tags=${finalParams.tags.join('%20')}`;
+  goodlinksUrl += `&tags=${finalParams.tags}`;
   goodlinksUrl += `&title=${encodeURIComponent(finalParams.title)}`;
 
   return goodlinksUrl;
@@ -23,7 +23,7 @@ async function getParams() {
   return new Promise((resolve) => {
     chrome.storage.sync.get(['tags', 'starred', 'read', 'autoclose'], function(items) {
       const params = {  
-        tags: items.tags.split(',').map(tag => tag.trim()),
+        tags: items.tags,
         starred: items.starred,
         read: items.read,
         autoclose: items.autoclose,
